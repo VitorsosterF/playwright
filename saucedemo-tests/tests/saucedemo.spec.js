@@ -26,4 +26,14 @@ test('Login, adicionar 3 itens e visualizar carrinho', async({ page }) => {
     await page.click('.shopping_cart_link');
     await expect(page.locator('.cart_item')).toHaveCount(3);
     await page.screenshot({ path: 'prints/carrinho.png' });
+
+    // 6. Remove item do carrinho
+    await page.screenshot({ path: 'prints/remover.png' });
+    await page.click('#remove-sauce-labs-backpack');
+
+    // 7. Volta pro carrinho para verificar remoção
+    const items = await page.locator('.cart_item');
+    await expect(items).toHaveCount(2);
+    await page.screenshot({ path: 'prints/removido.png' });
+
 });
